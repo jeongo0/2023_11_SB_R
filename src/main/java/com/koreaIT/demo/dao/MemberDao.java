@@ -8,7 +8,7 @@ import com.koreaIT.demo.vo.Member;
 
 @Mapper
 public interface MemberDao {
-
+	
 	@Insert("""
 			INSERT INTO `member`
 				SET regDate = NOW()
@@ -21,7 +21,7 @@ public interface MemberDao {
 					, email = #{email}
 			""")
 	public void joinMember(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email);
-
+	
 	@Select("""
 			SELECT * 
 				FROM `member`
@@ -31,4 +31,11 @@ public interface MemberDao {
 
 	@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();
+
+	@Select("""
+			SELECT *
+				FROM `member`
+				WHERE loginId = #{loginId}
+			""")
+	public Member getMemberByLoginId(String loginId);
 }
